@@ -98,7 +98,10 @@ class CategoriasScreen extends React.Component {
               <View style={{ flex: 1, flexDirection: 'column', margin: 1 }}>
                 <TouchableOpacity
                   style={styles.button}
-                  onPress={() => {}}>
+                  onPress={() => {
+                    global.category_id = item.id
+                    this.props.navigation.navigate('Productos');
+                  }}>
                   <Text
                     style={styles.item}>
                   {item.name}
