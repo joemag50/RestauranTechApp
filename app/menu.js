@@ -1,36 +1,72 @@
 import React from 'react';
-import { StyleSheet, Text,
-         View, Image, TextInput,
-         KeyboardAvoidingView, Button } from 'react-native';
+import { StyleSheet,
+         Text,
+         View,
+         TextInput,
+         TouchableOpacity,
+         ImageBackground } from 'react-native';
 
-global.URL = 'https://moviserv-web.herokuapp.com/';
+global.URL = 'https://restaurantech-web.herokuapp.com/';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  input: {
+    height: 50,
+    backgroundColor: '#fff',
+    marginHorizontal: 10,
+    marginVertical: 5,
+    paddingHorizontal: 15,
+    width: '90%',
+  },
+  button_container: {
+    marginVertical: 20,
+    width: '90%',
+    flex: 1,
+  },
+  button: {
+    flex: 1,
+    backgroundColor: '#FF5000',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 90,
+  },
+  button_text: {
+    color: '#FFF',
+    fontSize: 30,
+  }
+});
 
 class MenuScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      password: ''
+      client_name: '',
+      table_name: '',
     };
   }
 
   validate = () => {
-    //this.props.navigation.navigate('Menu');
-    //return;
-    
-    const { email, password }  = this.state ;
-    if (email.length == 0) {
-      alert("Favor de colocar un email válido");
+    /*
+    const { client_name, table_name }  = this.state ;
+    if (client_name.length == 0) {
+      alert("Favor de colocar nombre de cliente");
       return;
     }
-    if (password.length == 0) {
-      alert("Favor de colocar la contraseña");
+    if (table_name.length == 0) {
+      alert("Favor de colocar nombre de mesa");
       return;
     }
+    var new_client_name = client_name.replace(' ', '+')
+    var new_table_name = table_name.replace(' ', '+')
     //Consulta
-
-    URL_token = URL + '/api/login/?user[email]=' + email +
-                            '&user[password]=' + password;
+    URL_token = URL + 'api/new_order/?order[client_name]='+ new_client_name +
+                      '&order[table]=' + new_table_name ;
+    
+    console.log(URL_token);
     fetch(URL_token, {
       method: 'GET',
       headers:{
@@ -40,68 +76,40 @@ class MenuScreen extends React.Component {
     .then((response) => {
       if (response.result)
       {
-        global.email = email;
-        global.password = password;
-        global.id = response.object.id;
+        global.order_id = response.object.id;
+        global.client_name = response.object.client_name;
+        global.table_name = response.object.table;
 
-        this.props.navigation.navigate('Menu');
-      } else {
-        alert("Correo o contraseña incorrectos");
+        this.props.navigation.navigate('Orden');
       }
     })
     .catch(error => console.log('fallo la sesion') );
+    */
+    global.order_id = 7;
+    global.client_name = 'jose';
+    global.table_name = 'r12';
+    this.props.navigation.navigate('Orden');
     return;
   }
 
   render() {
     return (
-      <KeyboardAvoidingView style={styles.container} behavior="padding" >
-        <TextInput placeholder="Email" style={styles.input}
-                   onChangeText={(email) => this.setState({email})}
-                   value={this.state.email}
-                   keyboardType="email-address"/>
-        <TextInput placeholder="Password" style={styles.input}
-                   onChangeText={(password) => this.setState({password})}
-                   value={this.state.password} secureTextEntry={true} />
-        <View style={styles.button} >
-          <Button onPress={this.validate} title="Iniciar sesión" color="#846997ff"
-            accessibilityLabel="Learn more about this purple button" />
+      <ImageBackground style={ styles.container } source={require('../app/assets/plato.jpg')} >
+        <TextInput placeholder="Nombre de cliente" style={styles.input}
+                   onChangeText={(client_name) => this.setState({client_name})}
+                   value={this.state.client_name} />
+        <TextInput placeholder="Numero de mesa" style={styles.input}
+                   onChangeText={(table_name) => this.setState({table_name})}
+                   value={this.state.table_name} />
+        <View style={styles.button_container} >
+          <TouchableOpacity style={styles.button}
+                            onPress={this.validate}>
+          <Text style={styles.button_text} >ORDENAR</Text>
+          </TouchableOpacity>
         </View>
-        <View style={styles.button} >
-          <Button onPress={() => { this.props.navigation.navigate('CreateAccount'); }} title="Crear Cuenta" color="#846997ff"
-            accessibilityLabel="Learn more about this purple button" />
-        </View>
-        <View style={{ height: 60 }} />
-      </KeyboardAvoidingView>
+      </ImageBackground>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#4b69a7ff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  image: {
-    flex: 3,
-    width: 300,
-    resizeMode: 'contain'
-  },
-  input: {
-    height: 50,
-    backgroundColor: '#fff',
-    marginHorizontal: 10,
-    marginVertical: 5,
-    // paddingVertical: 5,
-    paddingHorizontal: 15,
-    width: '90%',
-  },
-  button: {
-    marginVertical: 5,
-    width: '90%',
-  }
-});
 
 export default MenuScreen
