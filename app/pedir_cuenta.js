@@ -8,6 +8,7 @@ import { StyleSheet,
          Alert,
          ScrollView } from 'react-native';
 
+const {width, height} = require('Dimensions').get('window');
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -19,21 +20,20 @@ const styles = StyleSheet.create({
     backgroundColor: '#DADEE2DD',
     width: '90%',
     flex: 1,
-    borderRadius: 20,
   },
-  column: {
+  button_container: {
     width: '90%',
     flex: 5,
     flexDirection: 'column',
   },
-  button_menu: {
+  button_categorias: {
     backgroundColor: '#E66E12',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 90,
     marginVertical: 5,
   },
-  button_cancel: {
+  button: {
     backgroundColor: '#FF5000',
     alignItems: 'center',
     justifyContent: 'center',
@@ -64,13 +64,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     height: 44,
   },
-  two_columns_container: {
+  buttons_container: {
     flexDirection: 'row',
     width: '90%'
   },
 });
 
-class OrdenScreen extends React.Component {
+class PedirCuentaScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -78,6 +78,10 @@ class OrdenScreen extends React.Component {
       order_products: [],
     };
   }
+
+  //componentDidUpdate() {
+  //  this.list_order();
+  //}
 
   componentDidMount() {
     this.list_order();
@@ -124,6 +128,8 @@ class OrdenScreen extends React.Component {
         global.client_name = '';
         global.table_name  = '';
 
+        Alert.alert('Gracias! Esperemos que haya disfrutado su comida', 'En seguida le llevaran la cuenta');
+
         this.props.navigation.navigate('Menu');
       }
     })
@@ -143,8 +149,6 @@ class OrdenScreen extends React.Component {
     }).then(res => res.json())
     .then((response) => {
       if (this.isUnmounted) { return; }
-
-      this.list_order();
     })
     .catch(error => console.log('fallo la sesion') );
     return;
@@ -162,8 +166,6 @@ class OrdenScreen extends React.Component {
     }).then(res => res.json())
     .then((response) => {
       if (this.isUnmounted) { return; }
-
-      this.list_order();
     })
     .catch(error => console.log('fallo la sesion') );
     return;
@@ -175,19 +177,8 @@ class OrdenScreen extends React.Component {
     );
   }
 
-  go_to_menu = () => {
+  go_to_categorias = () => {
     this.props.navigation.navigate('Categorias');
-  }
-
-  enviar_orden = () => {
-    console.log(this.state.order_products.length)
-    if (this.state.order_products.length == 0) {
-      Alert.alert('Error', 'Favor de seleccionar algo del menu');
-      return;
-    }
-    
-    Alert.alert('Felicidades!', 'En un momento le llevaran su pedido');
-    this.props.navigation.navigate('Cuenta');
   }
 
   GetItem(item) {
@@ -233,24 +224,14 @@ class OrdenScreen extends React.Component {
           />
         </ScrollView>
 
-        <View style={styles.two_columns_container}>
-          <View style={styles.column}>
-            <TouchableOpacity style={styles.button_menu}
-                              onPress={this.go_to_menu}>
-              <Text style={styles.button_text} >MENU</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button_cancel}
-                              onPress={this.cancel_order}>
-            <Text style={styles.button_text} >CANCELAR</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.column}>
+        <View style={styles.buttons_container}>
+          <View style={styles.button_container}>
             <TouchableOpacity style={styles.button_total} >
               <Text style={styles.button_text} >Total: {this.state.total}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.button_enviar}
-                              onPress={this.enviar_orden}>
-              <Text style={styles.button_text} >ENVIAR ORDEN</Text>
+                              onPress={this.cancel_order}>
+              <Text style={styles.button_text} >PEDIR CUENTA</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -259,4 +240,4 @@ class OrdenScreen extends React.Component {
   }
 }
 
-export default OrdenScreen
+export default PedirCuentaScreen

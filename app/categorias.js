@@ -22,14 +22,15 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     width: '90%',
   },
-  button_categorias: {
-    backgroundColor: '#12E640',
+  button: {
+    backgroundColor: '#FF6000',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 90,
     marginVertical: 5,
+    flex: 1,
   },
-  button: {
+  button_regresar: {
     backgroundColor: '#FF5000',
     alignItems: 'center',
     justifyContent: 'center',
@@ -95,7 +96,7 @@ class CategoriasScreen extends React.Component {
           <FlatList
             data={this.state.categories}
             renderItem={({ item }) => (
-              <View style={{ flex: 1, flexDirection: 'column', margin: 1 }}>
+              <View style={{ flex: 1, flexDirection: 'column', margin: 1, height: 70 }}>
                 <TouchableOpacity
                   style={styles.button}
                   onPress={() => {
@@ -110,15 +111,15 @@ class CategoriasScreen extends React.Component {
               </View>
 
             )}
-            numColumns={3}
+            numColumns={2}
             keyExtractor={(item, index) => index.toString()}
           />
         </ScrollView>
 
         <View style={styles.button_container} >
-          <TouchableOpacity style={styles.button_categorias}
+          <TouchableOpacity style={styles.button_regresar}
                             onPress={this.go_to_orden}>
-          <Text style={styles.button_text} >ORDEN</Text>
+          <Text style={styles.button_text} >REGRESAR</Text>
           </TouchableOpacity>
         </View>
       </ImageBackground>

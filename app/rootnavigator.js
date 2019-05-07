@@ -3,6 +3,7 @@ import MenuScreen from './menu';
 import OrdenScreen from './orden';
 import CategoriasScreen from './categorias';
 import ProductosCategoriaScreen from './productos_categoria';
+import PedirCuentaScreen from './pedir_cuenta';
 
 const RootNavigator = createSwitchNavigator({
   Menu: {
@@ -16,6 +17,9 @@ const RootNavigator = createSwitchNavigator({
   },
   Productos: {
     screen: ProductosCategoriaScreen
+  },
+  Cuenta: {
+    screen: PedirCuentaScreen
   },
 },
 {

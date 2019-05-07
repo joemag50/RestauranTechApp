@@ -6,7 +6,10 @@ import { StyleSheet,
          ImageBackground,
          FlatList,
          Alert,
-         ScrollView } from 'react-native';
+         ScrollView,
+         Image,
+         Modal,
+         ToastAndroid } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -19,24 +22,42 @@ const styles = StyleSheet.create({
     backgroundColor: '#DADEE2DD',
     width: '90%',
     flex: 1,
+    borderRadius: 20,
   },
   button_container: {
     marginVertical: 20,
     width: '90%',
   },
-  button_categorias: {
+  button_container_column: {
+    width: '100%',
+    flex: 5,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  button_agregar: {
     backgroundColor: '#12E640',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 90,
     marginVertical: 5,
+    width: '90%',
   },
-  button: {
+  button_cerrar: {
     backgroundColor: '#FF5000',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 90,
     marginVertical: 5,
+    width: '90%',
+  },
+  button_regresar: {
+    backgroundColor: '#FF5000',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 90,
+    marginVertical: 5,
+    width: '100%',
   },
   button_text: {
     color: '#FFF',
@@ -48,14 +69,62 @@ const styles = StyleSheet.create({
     fontSize: 18,
     height: 44,
   },
+  price: {
+    color: '#000',
+    padding: 10,
+    fontSize: 18,
+    height: 44,
+  },
+  modal: {
+     flex: 1,
+     alignItems: 'center',
+     justifyContent: 'center',
+     backgroundColor: '#DADEE2DD',
+     padding: 5,
+  },
+  text: {
+     color: '#000',
+     marginTop: 10,
+  },
+  buttons_container: {
+    flexDirection: 'row',
+    width: '90%'
+  },
 });
 
 class ProductosCategoriaScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      isVisible: false,
       products: [],
+      selected: ''
     };
+  }
+
+  _toastWithDurationHandler = (toast) => {
+    //function to make Toast With Duration
+    ToastAndroid.show(toast, ToastAndroid.SHORT);
+  }
+
+  _toastWithDurationGravityHandler = (toast) => {
+    //function to make Toast With Duration And Gravity
+   ToastAndroid.showWithGravity(
+      toast,
+      ToastAndroid.SHORT, //can be SHORT, LONG
+      ToastAndroid.CENTER //can be TOP, BOTTON, CENTER
+    );
+  }
+
+  _toastWithDurationGravityOffsetHandler = (toast) => {
+    //function to make Toast With Duration, Gravity And Offset
+     ToastAndroid.showWithGravityAndOffset(
+      toast,
+      ToastAndroid.LONG, //can be SHORT, LONG
+      ToastAndroid.BOTTOM, //can be TOP, BOTTON, CENTER
+      25, //xOffset
+      50 //yOffset
+    );
   }
 
   componentDidMount() {
@@ -99,6 +168,8 @@ class ProductosCategoriaScreen extends React.Component {
     }).then(res => res.json())
     .then((response) => {
       if (this.isUnmounted) { return; }
+
+      this._toastWithDurationGravityHandler('Producto agregado');
     })
     .catch(error => console.log('fallo la sesion') );
     return;
@@ -136,6 +207,45 @@ class ProductosCategoriaScreen extends React.Component {
   render() {
     return (
       <ImageBackground style={ styles.container } source={require('../app/assets/grupomenu.png')} >
+        <View>
+          <Modal animationType={"slide"}
+                 transparent={false}
+                 visible={this.state.isVisible}
+                 onRequestClose={() => {
+                     console.log("Modal has been closed.")
+                   }
+                 }>
+            <View style={styles.modal}>
+              <View style={styles.buttons_container}>
+                <View style={styles.button_container_column}>
+                  <Text style={styles.text}>Producto: {this.state.selected.name}</Text>
+                  <Text style={styles.text}>Precio: {this.state.selected.price}</Text>
+                  <Text style={styles.text}>Descripcion: {this.state.selected.description}</Text>
+                </View>
+                <View style={styles.button_container_column}>
+                  <Image 
+                      source={{uri: this.state.selected.image}}
+                      style={{width: 200, height: 200}}
+                  />
+                </View>
+              </View>
+
+              <TouchableOpacity style={styles.button_agregar}
+                    onPress={() => {
+                      this.new_product(this.state.selected.id);
+                      this.setState({ isVisible:!this.state.isVisible});
+                      return;
+                    } }>
+                <Text style={styles.button_text} >AGREGAR</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.button_cerrar}
+                    onPress={() => {this.setState({ isVisible:!this.state.isVisible})} }>
+                <Text style={styles.button_text} >CERRAR</Text>
+              </TouchableOpacity>
+            </View>
+          </Modal>
+        </View>
+
         <ScrollView style={ styles.scroll_container }>
           <FlatList
             data={this.state.products}
@@ -144,8 +254,15 @@ class ProductosCategoriaScreen extends React.Component {
               <View>
                 <Text
                   style={styles.item}
-                  onPress={this.GetItem.bind(this, item)}>
+                  onPress={() => {
+                    this.setState({ isVisible: true});
+                    this.setState({ selected: item });
+                  }}>
                   {item.name}
+                </Text>
+                <Text
+                  style={styles.price} >
+                  {item.price}
                 </Text>
               </View>
             )}
@@ -154,7 +271,7 @@ class ProductosCategoriaScreen extends React.Component {
         </ScrollView>
 
         <View style={styles.button_container} >
-          <TouchableOpacity style={styles.button}
+          <TouchableOpacity style={styles.button_regresar}
                             onPress={this.go_to_categorias}>
           <Text style={styles.button_text} >REGRESAR</Text>
           </TouchableOpacity>

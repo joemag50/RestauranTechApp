@@ -4,7 +4,8 @@ import { StyleSheet,
          View,
          TextInput,
          TouchableOpacity,
-         ImageBackground } from 'react-native';
+         ImageBackground,
+         Alert } from 'react-native';
 
 global.URL = 'https://restaurantech-web.herokuapp.com/';
 
@@ -20,19 +21,20 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     marginVertical: 5,
     paddingHorizontal: 15,
-    width: '90%',
+    width: '60%',
+    borderRadius: 90,
   },
   button_container: {
-    marginVertical: 20,
-    width: '90%',
+    width: '50%',
     flex: 1,
   },
-  button: {
-    flex: 1,
+  button_red: {
+    marginVertical: 20,
     backgroundColor: '#FF5000',
+    borderRadius: 90,
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 90,
   },
   button_text: {
     color: '#FFF',
@@ -50,14 +52,13 @@ class MenuScreen extends React.Component {
   }
 
   validate = () => {
-    /*
     const { client_name, table_name }  = this.state ;
     if (client_name.length == 0) {
-      alert("Favor de colocar nombre de cliente");
+      Alert.alert("Error", "Favor de colocar nombre de cliente");
       return;
     }
     if (table_name.length == 0) {
-      alert("Favor de colocar nombre de mesa");
+      Alert.alert("Error", "Favor de colocar nombre de mesa");
       return;
     }
     var new_client_name = client_name.replace(' ', '+')
@@ -84,11 +85,6 @@ class MenuScreen extends React.Component {
       }
     })
     .catch(error => console.log('fallo la sesion') );
-    */
-    global.order_id = 7;
-    global.client_name = 'jose';
-    global.table_name = 'r12';
-    this.props.navigation.navigate('Orden');
     return;
   }
 
@@ -102,9 +98,9 @@ class MenuScreen extends React.Component {
                    onChangeText={(table_name) => this.setState({table_name})}
                    value={this.state.table_name} />
         <View style={styles.button_container} >
-          <TouchableOpacity style={styles.button}
+          <TouchableOpacity style={styles.button_red}
                             onPress={this.validate}>
-          <Text style={styles.button_text} >ORDENAR</Text>
+            <Text style={styles.button_text} >ORDENAR</Text>
           </TouchableOpacity>
         </View>
       </ImageBackground>
