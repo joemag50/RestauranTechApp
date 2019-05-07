@@ -192,7 +192,7 @@ class PedirCuentaScreen extends React.Component {
 
   render() {
     return (
-      <View style={ styles.container } source={require('../app/assets/grupomenu.png')} >
+      <View style={ styles.container } >
         <ScrollView style={ styles.scroll_container }>
           <FlatList
             data={this.state.order_products}

@@ -206,7 +206,7 @@ class ProductosCategoriaScreen extends React.Component {
 
   render() {
     return (
-      <View style={ styles.container } source={require('../app/assets/grupomenu.png')} >
+      <View style={ styles.container } >
         <View>
           <Modal animationType={"slide"}
                  transparent={false}
