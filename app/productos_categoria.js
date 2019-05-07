@@ -3,7 +3,6 @@ import { StyleSheet,
          Text,
          View,
          TouchableOpacity,
-         ImageBackground,
          FlatList,
          Alert,
          ScrollView,
@@ -16,6 +15,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: pizza3,
   },
   scroll_container: {
     marginVertical: 5,
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   button_agregar: {
-    backgroundColor: '#12E640',
+    backgroundColor: pizza2,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 90,
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     width: '90%',
   },
   button_cerrar: {
-    backgroundColor: '#FF5000',
+    backgroundColor: pizza5,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 90,
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     width: '90%',
   },
   button_regresar: {
-    backgroundColor: '#FF5000',
+    backgroundColor: pizza5,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 90,
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
      flex: 1,
      alignItems: 'center',
      justifyContent: 'center',
-     backgroundColor: '#DADEE2DD',
+     backgroundColor: pizza3,
      padding: 5,
   },
   text: {
@@ -206,7 +206,7 @@ class ProductosCategoriaScreen extends React.Component {
 
   render() {
     return (
-      <ImageBackground style={ styles.container } source={require('../app/assets/grupomenu.png')} >
+      <View style={ styles.container } source={require('../app/assets/grupomenu.png')} >
         <View>
           <Modal animationType={"slide"}
                  transparent={false}
@@ -276,7 +276,7 @@ class ProductosCategoriaScreen extends React.Component {
           <Text style={styles.button_text} >REGRESAR</Text>
           </TouchableOpacity>
         </View>
-      </ImageBackground>
+      </View>
     );
   }
 }

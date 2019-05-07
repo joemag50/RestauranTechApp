@@ -3,7 +3,6 @@ import { StyleSheet,
          Text,
          View,
          TouchableOpacity,
-         ImageBackground,
          FlatList,
          Alert,
          ScrollView } from 'react-native';
@@ -13,6 +12,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: pizza3,
   },
   scroll_container: {
     marginVertical: 5,
@@ -27,21 +27,21 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   button_menu: {
-    backgroundColor: '#E66E12',
+    backgroundColor: pizza4,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 90,
     marginVertical: 5,
   },
   button_cancel: {
-    backgroundColor: '#FF5000',
+    backgroundColor: pizza5,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 90,
     marginVertical: 5,
   },
   button_enviar: {
-    backgroundColor: '#12E640',
+    backgroundColor: pizza2,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 90,
@@ -215,7 +215,7 @@ class OrdenScreen extends React.Component {
 
   render() {
     return (
-      <ImageBackground style={ styles.container } source={require('../app/assets/grupomenu.png')} >
+      <View style={ styles.container } >
         <ScrollView style={ styles.scroll_container }>
           <FlatList
             data={this.state.order_products}
@@ -254,7 +254,7 @@ class OrdenScreen extends React.Component {
             </TouchableOpacity>
           </View>
         </View>
-      </ImageBackground>
+      </View>
     );
   }
 }

@@ -8,12 +8,18 @@ import { StyleSheet,
          Alert } from 'react-native';
 
 global.URL = 'https://restaurantech-web.herokuapp.com/';
+global.pizza1 = '#A60311';
+global.pizza2 = '#5A7302';
+global.pizza3 = '#F2B705';
+global.pizza4 = '#F27405';
+global.pizza5 = '#D93D04';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: pizza3,
   },
   input: {
     height: 50,
@@ -30,7 +36,7 @@ const styles = StyleSheet.create({
   },
   button_red: {
     marginVertical: 20,
-    backgroundColor: '#FF5000',
+    backgroundColor: pizza5,
     borderRadius: 90,
     flex: 1,
     alignItems: 'center',
@@ -90,7 +96,7 @@ class MenuScreen extends React.Component {
 
   render() {
     return (
-      <ImageBackground style={ styles.container } source={require('../app/assets/plato.jpg')} >
+      <View style={ styles.container }>
         <TextInput placeholder="Nombre de cliente" style={styles.input}
                    onChangeText={(client_name) => this.setState({client_name})}
                    value={this.state.client_name} />
@@ -103,7 +109,7 @@ class MenuScreen extends React.Component {
             <Text style={styles.button_text} >ORDENAR</Text>
           </TouchableOpacity>
         </View>
-      </ImageBackground>
+      </View>
     );
   }
 }

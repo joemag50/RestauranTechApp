@@ -3,7 +3,6 @@ import { StyleSheet,
          Text,
          View,
          TouchableOpacity,
-         ImageBackground,
          FlatList,
          ScrollView } from 'react-native';
 
@@ -12,6 +11,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: pizza3,
   },
   scroll_container: {
     marginVertical: 5,
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     width: '90%',
   },
   button: {
-    backgroundColor: '#FF6000',
+    backgroundColor: pizza2,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 90,
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   button_regresar: {
-    backgroundColor: '#FF5000',
+    backgroundColor: pizza5,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 90,
@@ -91,7 +91,7 @@ class CategoriasScreen extends React.Component {
 
   render() {
     return (
-      <ImageBackground style={ styles.container } source={require('../app/assets/pizarrafondo.png')} >
+      <View style={ styles.container } >
         <ScrollView style={ styles.scroll_container }>
           <FlatList
             data={this.state.categories}
@@ -122,7 +122,7 @@ class CategoriasScreen extends React.Component {
           <Text style={styles.button_text} >REGRESAR</Text>
           </TouchableOpacity>
         </View>
-      </ImageBackground>
+      </View>
     );
   }
 }

@@ -3,7 +3,6 @@ import { StyleSheet,
          Text,
          View,
          TouchableOpacity,
-         ImageBackground,
          FlatList,
          Alert,
          ScrollView } from 'react-native';
@@ -14,6 +13,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: pizza3,
   },
   scroll_container: {
     marginVertical: 5,
@@ -26,22 +26,8 @@ const styles = StyleSheet.create({
     flex: 5,
     flexDirection: 'column',
   },
-  button_categorias: {
-    backgroundColor: '#E66E12',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 90,
-    marginVertical: 5,
-  },
-  button: {
-    backgroundColor: '#FF5000',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 90,
-    marginVertical: 5,
-  },
   button_enviar: {
-    backgroundColor: '#12E640',
+    backgroundColor: pizza2,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 90,
@@ -206,7 +192,7 @@ class PedirCuentaScreen extends React.Component {
 
   render() {
     return (
-      <ImageBackground style={ styles.container } source={require('../app/assets/grupomenu.png')} >
+      <View style={ styles.container } source={require('../app/assets/grupomenu.png')} >
         <ScrollView style={ styles.scroll_container }>
           <FlatList
             data={this.state.order_products}
@@ -235,7 +221,7 @@ class PedirCuentaScreen extends React.Component {
             </TouchableOpacity>
           </View>
         </View>
-      </ImageBackground>
+      </View>
     );
   }
 }
